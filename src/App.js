@@ -82,7 +82,7 @@ class App extends React.Component {
     this.setState({imgUrl:this.state.input})
     app1.models.predict(
       Clarifai.FACE_DETECT_MODEL,
-      this.state.imgUrl, 
+      this.state.input, 
       {language: 'en'}
     )
     .then(response => this.displayBox(this.calculateFaceLocation(response)))
