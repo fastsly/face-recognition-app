@@ -66,7 +66,8 @@ class App extends React.Component {
       leftCol:clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
       rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height- (clarifaiFace.bottom_row * height)
+      bottomRow: height- (clarifaiFace.bottom_row * height),
+      isSignedIn: false
     }
   }
 
@@ -93,24 +94,30 @@ class App extends React.Component {
   }
 
   onRouteChange = (route) =>{
+    if (route === 'signin'){
+      this.setState({isSignedIn: false})
+    } else if (route === 'home'){
+      this.setState({isSignedIn: true})
+    }
     this.setState({route: route})
   }
   render(){
+    const {isSignedIn, route, box, imgUrl} = this.state;
     return (
       <div className="App">
         <Particles className='particles' params={particlesOptions}/>
+        <Navigation isSignedIn={isSignedIn} onRouteChange= {this.onRouteChange} />
         {this.state.route ==='home' 
           ?<div>
-              <Navigation onRouteChange= {this.onRouteChange} />
               <Logo/>
               <Rank/>
               <ImgLinkForm 
                 onInputChange= {this.onInputChange} 
                 onSubmit= {this.onSubmit}
               />	    
-              <FaceRecognition box= {this.state.box} imgUrl={this.state.imgUrl}/>
+              <FaceRecognition box= {box} imgUrl={imgUrl}/>
             </div>
-          :(this.state.route === 'signin' 
+          :(route === 'signin' 
               ?<SignIn onRouteChange={this.onRouteChange}/>
               :<Register/>
           )
