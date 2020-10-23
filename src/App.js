@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from './components/Navigation/Navigation'
-import Logo from './components/Logo/Logo'
+//import Logo from './components/Logo/Logo'
 import ImgLinkForm from './components/ImgLinkForm/ImgLinkForm.js'
 import Rank from './components/Rank/Rank.js'
 import Particles from 'react-particles-js';
@@ -72,17 +72,17 @@ class App extends React.Component {
   }
 
   displayBox = (box) => {
-    console.log(box)
+    //console.log(box)
     this.setState({box: box})
   }
 
   onInputChange = (event)=>{
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.setState({input:event.target.value})
   }
 
   onSubmit = ()=>{
-    console.log('click')
+    //console.log('click')
     this.setState({imgUrl:this.state.input})
     app1.models.predict(
       Clarifai.FACE_DETECT_MODEL,
@@ -93,13 +93,13 @@ class App extends React.Component {
     .catch(err => window.alert("An error has occured: "+err))
   }
 
-  onRouteChange = (route) =>{
-    if (route === 'signin'){
+  onRouteChange = (route) => {
+    if (route === 'signout') {
       this.setState({isSignedIn: false})
-    } else if (route === 'home'){
+    } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
-    this.setState({route: route})
+    this.setState({route: route});
   }
   render(){
     const {isSignedIn, route, box, imgUrl} = this.state;
@@ -107,9 +107,9 @@ class App extends React.Component {
       <div className="App">
         <Particles className='particles' params={particlesOptions}/>
         <Navigation isSignedIn={isSignedIn} onRouteChange= {this.onRouteChange} />
-        {this.state.route ==='home' 
+        { route ==='home' 
           ?<div>
-              <Logo/>
+              {/* <Logo/> */}
               <Rank/>
               <ImgLinkForm 
                 onInputChange= {this.onInputChange} 
