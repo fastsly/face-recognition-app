@@ -4,13 +4,13 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
-      name: "",
+      email: '',
+      password: '',
+      name: '',
     };
   }
   onEmailChange = (event) => {
-    this.setState({ signInEmail: event.target.value });
+    this.setState({ email: event.target.value });
   };
   onPasswordChange = (event) => {
     this.setState({ password: event.target.value });
@@ -21,25 +21,26 @@ class Register extends React.Component {
   };
 
   onSubmitRegister = () => {
-    fetch('http://localhost:3003/register', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
+    fetch("http://localhost:3003/register", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password,
-        name: this.state.name
-      })
+        name: this.state.name,
+      }),
     })
-      .then(response => response.json())
-      .then(user => {
-        if (user){
-            console.log('we succeeded '+ user)
-            this.props.loadUser(user);
-            this.props.onRouteChange('home') 
+      .then((response) => response.json())
+      .then((user) => {
+        if (user) {
+          console.log("we succeeded " + JSON.stringify(user));
+          this.props.loadUser(user);
+          this.props.onRouteChange("home");
         }
-    }).catch(console.log)
-    //this.props.onRouteChange('home') 
-}
+      })
+      .catch(console.log);
+    //this.props.onRouteChange('home')
+  };
 
   render() {
     return (
@@ -53,7 +54,7 @@ class Register extends React.Component {
                   Name
                 </label>
                 <input
-                    onChange= {this.onNameChange}
+                  onChange={this.onNameChange}
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="text"
                   name="name"
@@ -65,7 +66,7 @@ class Register extends React.Component {
                   Email
                 </label>
                 <input
-                    onChange= {this.onEmailChange}
+                  onChange={this.onEmailChange}
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="email"
                   name="email-address"
@@ -77,7 +78,7 @@ class Register extends React.Component {
                   Password
                 </label>
                 <input
-                    onChange= {this.onPasswordChange}
+                  onChange={this.onPasswordChange}
                   className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="password"
                   name="password"
