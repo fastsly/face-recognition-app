@@ -34,8 +34,12 @@ class Register extends React.Component {
       .then((user) => {
         if (user) {
           console.log("we succeeded " + JSON.stringify(user));
+          if (user=== "Unable to register!"){
+            console.log ('Error: '+user)
+          } else {
           this.props.loadUser(user);
           this.props.onRouteChange("home");
+          }
         }
       })
       .catch(console.log);
