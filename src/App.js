@@ -1,6 +1,6 @@
 import React from "react";
 import Navigation from "./components/Navigation/Navigation";
-import Logo from './components/Logo/Logo'
+import Logo from './components/Logo/Logo.js'
 import ImgLinkForm from "./components/ImgLinkForm/ImgLinkForm.js";
 import Rank from "./components/Rank/Rank.js";
 import Particles from "react-particles-js";
