@@ -114,7 +114,7 @@ class App extends React.Component {
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input, { language: "en" })
       .then((response) => {
         if (response) {
-          fetch("https://still-basin-17296.herokuapp.com//image", {
+          fetch("https://still-basin-17296.herokuapp.com/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
