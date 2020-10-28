@@ -1,4 +1,5 @@
 import React from "react";
+import Title from './components/Title/Title'
 import Navigation from "./components/Navigation/Navigation";
 import Logo from './components/Logo/Logo.js'
 import ImgLinkForm from "./components/ImgLinkForm/ImgLinkForm.js";
@@ -148,6 +149,7 @@ class App extends React.Component {
     const { isSignedIn, route, box, imgUrl } = this.state;
     return (
       <div className="App">
+        <Title/>
         <Particles className="particles" params={particlesOptions} />
         <Navigation
           isSignedIn={isSignedIn}
