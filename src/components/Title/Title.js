@@ -10,7 +10,6 @@ class Title extends React.PureComponent {
         <Helmet>
           <title>{ TITLE }</title>
         </Helmet>
-        ...
       </>
     )
   }
