@@ -1,18 +1,13 @@
 import React from "react";
 import Navigation from "./components/Navigation/Navigation";
-//import Logo from './components/Logo/Logo'
+import Logo from './components/Logo/Logo'
 import ImgLinkForm from "./components/ImgLinkForm/ImgLinkForm.js";
 import Rank from "./components/Rank/Rank.js";
 import Particles from "react-particles-js";
-import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition.js";
 import SignIn from "./components/SignIn/SignIn.js";
 import Register from "./components/Register/Register.js";
 import "./App.css";
-
-const app1 = new Clarifai.App({
-  apiKey: "d2374cb5c0bc42abbeebc018f1f2a663",
-});
 
 const particlesOptions = {
   particles: {
@@ -43,6 +38,7 @@ const particlesOptions = {
     },
   },
 };
+
 
 const initialState = {
   input: "",
@@ -110,26 +106,31 @@ class App extends React.Component {
   onPictureSubmit = () => {
     //console.log('click')
     this.setState({ imgUrl: this.state.input });
-    app1.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input, { language: "en" })
-      .then((response) => {
+    fetch("https://still-basin-17296.herokuapp.com/imageurl", {
+      method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
+      })
+      .then(response => response.json())
+      .then(response => {
         if (response) {
           fetch("https://still-basin-17296.herokuapp.com/image", {
-            method: "put",
-            headers: { "Content-Type": "application/json" },
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              id: this.state.user.id,
-            }),
-          })
-            .then((response) => response.json())
-            .then((count) => {
-                this.setState(
-                  Object.assign(this.state.user, { entries: count })
-                );
+              id: this.state.user.id
             })
-            .catch(console.log);
+          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count}))
+            })
+            .catch(console.log)
+
         }
-        this.displayBox(this.calculateFaceLocation(response));
+        this.displayBox(this.calculateFaceLocation(response))
       })
       .catch((err) => window.alert("An error has occured: " + err));
   };
@@ -155,7 +156,7 @@ class App extends React.Component {
         />
         {route === "home" 
         ? <div>
-            {/* <Logo/> */}
+            <Logo/>
             <Rank
               name={this.state.user.name}
               entries={this.state.user.entries}
